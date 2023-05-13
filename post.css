@@ -1,0 +1,180 @@
+/* $bright-color: #fff; */
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #80afcd;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    line-height: 1.4;
+    overflow: hidden;
+}
+
+.container {
+    background: url("https://www.journeyera.com/wp-content/uploads/2018/01/siargao-island-pictures-photo-gallery-0319956.jpg.webp");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 350px;
+    height: 500px;
+    position: relative;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.315);
+    margin: 20px ;
+    transform: translate(-15%,5%);
+}
+h3{
+    width: 40%;
+    font: 10px;
+    transform: translate(-7%,-140%);
+    color: white;
+    
+}
+
+.container__info {
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 20%;
+    display: flex;
+    align-items: flex-end;
+    padding: 15px 30px;
+    color: #fff;
+
+}
+
+span {
+    margin-right: 20px;
+}
+
+i {
+    margin-right: 10px;
+}
+
+.container__profile {
+    background-color: #e4f2fd;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
+}
+
+img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-position: center;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+h2 {
+    color: #334454;
+    font-size: 1.2rem;
+}
+
+p {
+    color: #a1b2bc;
+    font-size: 0.8rem;
+}
+
+p,
+b {
+    font-style: italic;
+}
+
+/* 
+Contact */
+
+.contact-form {
+    background-color: #e8e8e8;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.315);
+    transform: translate(-5%,15%);
+
+  }
+  
+  .contact-form label {
+    color: black;
+  }
+  
+  .contact-form .heading {
+    font-size: 24px;
+    color: black;
+    ;
+    margin-bottom: 12px;
+    font-weight: bold;
+    display: block;
+  }
+  
+  .contact-form form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .contact-form label {
+    margin-bottom: 10px;
+  }
+  
+  textarea {
+    resize: none;
+    height: 80px;
+    width: 200px;
+  }
+  
+  .contact-form input, .contact-form textarea {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  .contact-form input:focus, .contact-form textarea:focus {
+    outline: none;
+    box-shadow: 0 0 5px #0099ff;
+    transform: scale(1.05);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .contact-form button[type="submit"] {
+    background-color:#0099ff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .contact-form button[type="submit"]:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  
+.back{
+    margin-top: 50px;
+    width: 20%;
+    background-color: rgba(5, 5, 5, 0);
+    color: #fff;
+    padding: 5px;
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    position: absolute;
+    transform: translate(-70%,-1000%);
+  }
+ 
+  

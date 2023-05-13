@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="login.css" />
+    <link rel="icon" href="Siargao.png">
+    <title>Siargao | Login</title>
+  </head>
+  <body>
+    <h2>Welcome Administrator</h2>
+    <div class="container" id="container">
+      <div class="form-container sign-up-container">
+      </div>
+      <div class="form-container sign-in-container">
+        <form
+          name="loginForm"
+          action="Dashboard.html"
+          onsubmit="return validateForm()"
+        >
+          <h1  style="transform: translateX(200%);">Login </h1>
+          <input type="text" placeholder="Username" id="Username" style="transform: translateX(70%);"/>
+          <input type="password" placeholder="Password" id="Password"  style="transform: translateX(70%);" />
+          <a href="#"  style="transform: translateX(120%);">Forgot your password?</a>
+          <button  style="transform: translateX(140%);">Login</button>
+        </form>
+      
+      </div>
+  <script>
+    function validateForm() {
+      var username = document.forms["loginForm"]["Username"].value;
+      var password = document.forms["loginForm"]["Password"].value;
+
+      // Repository of usernames and passwords
+      var users = [
+        {
+          username: "Admin",
+          password: "Admin",
+        },
+      ];
+
+      // Check if the entered username and password match a user in the repository
+      for (var i = 0; i < users.length; i++) {
+        if (username == users[i].username && password == users[i].password) {
+          // If match is found, display a new HTML page
+
+          return;
+        }
+      }
+
+      // If no match is found, display an error message
+      alert("Incorrect username or password");
+      return false;
+    }
+  </script>
+</html>

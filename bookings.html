@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Travel Booking</title>
+  </head>
+  <body>
+    <h1>Travel Booking</h1>
+    <form action="book.php" method="get">
+      <label>Name:</label>
+      <input type="text" name="name" />
+      <br />
+      <label>Email:</label>
+      <input type="email" name="email" />
+      <br />
+      <label>Destination:</label>
+      <select name="destination">
+        <option value="">--Select a hotel--</option>
+        <option value="Fundacion Pacita Batanes Nature Lodge">
+          Fundacion Pacita Batanes Nature Lodge
+        </option>
+        <option value="Marfel's Lodge">Marfel's Lodge</option>
+        <option value="Brandon's Lodging">Brandon's Lodging</option>
+        <option value="Dive Batanes Lodge">Dive Batanes Lodge</option>
+        <option value="Pension Ivatan Hometel">Pension Ivatan Hometel</option>
+        <option value="Amboy's Hometel">Amboy's Hometel</option>
+        <option value="Batanes Resort">Batanes Resort</option>
+      </select>
+      <br />
+      <label>Check-In:</label>
+      <input type="date" name="checkin" />
+      <br />
+      <label>Check-Out:</label>
+      <input type="date" name="checkout" />
+      <br />
+      <label>Room Type:</label>
+      <select name="roomtype">
+        <option value="Luxury">Luxury Suite</option>
+        <option value="Premium">Premium Suite</option>
+        <option value="Basic">Basic Suite</option>
+      </select>
+      <br />
+      <label>Adults:</label>
+      <input type="number" name="adults" min="1" />
+      <br />
+      <label>Kids:</label>
+      <input type="number" name="kids" min="0" />
+      <br /><br />
+      <input type="submit" value="Book" />
+    </form>
+  </body>
+</html>
+
+<style>
+  form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  label {
+    margin-top: 10px;
+  }
+
+  input,
+  select {
+    margin-top: 5px;
+    padding: 5px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+  }
+
+  input[type="submit"] {
+    margin-top: 10px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #3e8e41;
+  }
+
+  /* Adjust the font size and spacing */
+  h1,
+  label {
+    font-size: 1.2em;
+    letter-spacing: 0.5px;
+  }
+</style>
