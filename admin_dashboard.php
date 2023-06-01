@@ -227,7 +227,7 @@ if (!isSessionActive()) {
     }
 
     .app-content-headerButton {
-        background-color: var(--action-color);
+        background-color: #000c;
         color: #fff;
         font-size: 14px;
         line-height: 24px;
@@ -305,146 +305,260 @@ if (!isSessionActive()) {
 <body>
     <div class="app-container">
         <div class="sidebar">
+            <center><img src="admin.png" style="width: 50%;"></center>
+            <div class="sidebar-header">
+                <div class="app-icon">
+                    <Strong>
+                        <span>Hello
+                            <?php echo $_SESSION['userSession']; ?>
+                        </span>
+                    </Strong>
+                </div>
+            </div>
             <nav>
                 <ul class="sidebar-list">
                     <li data-rel="1" class="sidebar-list-item"><a href="#"><span>Bookings</span></a></li>
-                    <li data-rel="2" class="sidebar-list-item"><a href="#"><span>Clients</span></a></li>
+                    <li data-rel="2" class="sidebar-list-item"><a href="#"><span>Package Deals</span></a></li>
+                    <li data-rel="3" class="sidebar-list-item"><a href="#"><span>Clients</span></a></li>
                     <li class="sidebar-list-item"><a href="logout.php">Logout</a></li>
+                </ul>
             </nav>
-
         </div>
+
         <section class="products-area-wrappers">
             <article>
-                <div class=" app-content">
+                <div class="app-content">
                     <div class="app-content-header">
                         <h1 class="app-content-headerText">Bookings</h1>
                     </div>
 
-                    <body>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Destanation</th>
-                                    <th>Adults</th>
-                                    <th>Kids</th>
-                                    <th>Room Type</th>
-                                    <th>Check-in</th>
-                                    <th>Check-out</th>
-                                    <th>Total</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody data-rel="1">
-                                <?php
-                                $servername = "localhost";
-                                $username = "root";
-                                $password = "";
-                                $dbname = "batanes";
-                                $conn = new mysqli($servername, $username, $password, $dbname);
-                                if ($conn->connect_error) {
-                                    die("Connection failed: " . $conn->connect_error);
-                                }
-                                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                                    $booking_id = $_POST['booking_id'];
-                                    $status = $_POST['status'];
-                                    $sql = "UPDATE bookings SET status='$status' WHERE id=$booking_id";
-                                    if ($conn->query($sql) === TRUE) {
-                                    } else {
-                                        echo "Error updating booking status: " . $conn->error;
-                                    }
-                                }
-                                $sql = "SELECT * FROM bookings";
-                                $result = $conn->query($sql);
-                                if ($result->num_rows > 0) {
-                                    while ($row = $result->fetch_assoc()) {
-                                        $total = "₱" . number_format($row["total"], 2);
-                                        $tax = "₱" . number_format($row["tax"], 2);
-                                        echo "<tr><td>" . $row["id"] . "</td><td>" . $row["NAME"] . "</td><td>" . $row["email"] . "</td><td>" . $row["destination"] . "</td><td>" . $row["adults"] . "</td><td>" . $row["kids"] . "</td><td>" . $row["roomtype"] . "</td><td>" . $row["checkin"] . "</td><td>" . $row["checkout"] . "</td><td>" . $total . "</td><td>" . $row["status"] . "</td>";
-                                        echo "<td>";
-                                        // Display a form to update the booking status
-                                        echo "<form method='POST' action='" . $_SERVER['PHP_SELF'] . "'>";
-                                        echo "<input type='hidden' name='booking_id' value='" . $row["id"] . "'>";
-                                        echo "<select name='status'>";
-                                        echo "<option value='Approved'>Approved</option>";
-                                        echo "<option value='Declined'>Declined</option>";
-                                        echo "<option value='Pending'>Pending</option>";
-                                        echo "</select>";
-                                        echo "<input type='submit' value='Update'>";
-                                        echo "</form>";
-                                        echo "</td></tr>";
-                                    }
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Destination</th>
+                                <th>Adults</th>
+                                <th>Kids</th>
+                                <th>Room Type</th>
+                                <th>Check-in</th>
+                                <th>Check-out</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $servername = "localhost";
+                            $username = "root";
+                            $password = "";
+                            $dbname = "batanes";
+
+                            // Create a new database connection
+                            $conn = new mysqli($servername, $username, $password, $dbname);
+
+                            if ($conn->connect_error) {
+                                die("Connection failed: " . $conn->connect_error);
+                            }
+
+                            if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['booking_id'])) {
+                                $booking_id = $_POST['booking_id'];
+                                $status = $_POST['status'];
+                                $sql = "UPDATE bookings SET status='$status' WHERE id=$booking_id";
+                                if ($conn->query($sql) === TRUE) {
+                                    echo "Booking status updated successfully.";
                                 } else {
-                                    echo "No bookings found";
+                                    echo "Error updating booking status: " . $conn->error;
                                 }
-                                ?>
-                            </tbody>
-                        </table>
-                    </body>
+                            }
+
+                            $sql = "SELECT * FROM bookings";
+                            $result = $conn->query($sql);
+
+                            if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) {
+                                    $total = "₱" . number_format($row["total"], 2);
+                                    $tax = "₱" . number_format($row["tax"], 2);
+
+                                    echo "<tr>";
+                                    echo "<td>" . $row["id"] . "</td>";
+                                    echo "<td>" . $row["NAME"] . "</td>";
+                                    echo "<td>" . $row["email"] . "</td>";
+                                    echo "<td>" . $row["destination"] . "</td>";
+                                    echo "<td>" . $row["adults"] . "</td>";
+                                    echo "<td>" . $row["kids"] . "</td>";
+                                    echo "<td>" . $row["roomtype"] . "</td>";
+                                    echo "<td>" . $row["checkin"] . "</td>";
+                                    echo "<td>" . $row["checkout"] . "</td>";
+                                    echo "<td>" . $total . "</td>";
+                                    echo "<td>" . $row["status"] . "</td>";
+                                    echo "<td>";
+                                    // Display a form to update the booking status
+                                    echo "<form method='POST' action='" . $_SERVER['PHP_SELF'] . "'>";
+                                    echo "<input type='hidden' name='booking_id' value='" . $row["id"] . "'>";
+                                    echo "<select name='status'>";
+                                    echo "<option value='Approved'>Approved</option>";
+                                    echo "<option value='Declined'>Declined</option>";
+                                    echo "<option value='Pending'>Pending</option>";
+                                    echo "</select>";
+                                    echo "<input type='submit' value='Update'>";
+                                    echo "</form>";
+                                    echo "</td>";
+                                    echo "</tr>";
+                                }
+                            } else {
+                                echo "<tr><td colspan='12'>No bookings found</td></tr>";
+                            }
+
+                            $conn->close();
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
             </article>
         </section>
+
+        <section class="products-area-wrappers">
+            <article>
+                <div class="app-content">
+                    <div class="app-content-header">
+                        <h1 class="app-content-headerText">Package Deals</h1>
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Customer Name</th>
+                                <th>Email</th>
+                                <th>Package</th>
+                                <th>Booking Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $servername = "localhost";
+                            $username = "root";
+                            $password = "";
+                            $dbname = "batanes";
+
+                            // Create a new database connection
+                            $conn = new mysqli($servername, $username, $password, $dbname);
+                            // SQL query to select data from the table
+                            $sql = "SELECT * FROM package";
+                            $result = mysqli_query($conn, $sql);
+
+                            // Output data of each row
+                            while ($row = $result->fetch_assoc()) {
+                                echo '<tr>';
+                                echo '<td>' . $row["id"] . '</td>';
+                                echo '<td>' . $row["NAME"] . '</td>';
+                                echo '<td>' . $row["email"] . '</td>';
+                                echo '<td>' . $row["package"] . '</td>';
+                                echo '<td>' . $row["booking_date"] . '</td>';
+                                echo '<td>';
+                                echo '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '">';
+                                echo '<input type="hidden" name="package_id" value="' . $row["id"] . '">';
+                                echo '<select name="status">';
+                                echo '<option value="Approved"' . ($row["status"] == "Approved" ? ' selected' : '') . '>Approved</option>';
+                                echo '<option value="Declined"' . ($row["status"] == "Declined" ? ' selected' : '') . '>Declined</option>';
+                                echo '<option value="Pending"' . ($row["status"] == "Pending" ? ' selected' : '') . '>Pending</option>';
+                                echo '</select>';
+                                echo '<input type="submit" name="update_status" value="Update">';
+                                echo '</form>';
+                                echo '</td>';
+                                echo '</tr>';
+                            }
+
+                            // Check if the form was submitted
+                            if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
+                                $packageId = $_POST['package_id'];
+                                $status = $_POST['status'];
+
+                                // Update the status in the database
+                                $updateSql = "UPDATE package SET status='$status' WHERE id=$packageId";
+                                if (mysqli_query($conn, $updateSql)) {
+                                    // Status updated successfully
+                                    echo "Status updated successfully.";
+                                } else {
+                                    // Failed to update the status
+                                    echo "Error updating status: " . mysqli_error($conn);
+                                }
+                            }
+
+                            // Close the database connection
+                            
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </article>
+        </section>
+
         <section class="products-area-wrappers">
             <article>
                 <div class="app-content">
                     <div class="app-content-header">
                         <h1 class="app-content-headerText">Clients</h1>
-                        <button class="app-content-headerButton" onclick="redirectToPage2()" style="transform: translateX(133vh);">Add Client</button>
+                        <button class="app-content-headerButton" onclick="redirectToPage2()"
+                            style="transform: translateX(133vh);">Add Client</button>
                     </div>
 
-                    <body>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Username</th>
-                                    <th>Email</th>
-                                    <th>Password</th>
-                                    <th>Action</th>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Password</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $servername = "localhost";
+                            $username = "root";
+                            $password = "";
+                            $dbname = "batanes";
 
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
+                            // Create a new database connection
+                            $conn = new mysqli($servername, $username, $password, $dbname);
+                            // SQL query to select data from the table
+                            $sql = "SELECT * FROM users";
+                            $result = mysqli_query($conn, $sql);
 
-                                // SQL query to select data from the table
-                                $sql = "SELECT * FROM users";
-                                $result = mysqli_query($conn, $sql);
-
-                                // Output data of each row
-                                while ($row = $result->fetch_assoc()) {
-                                    echo '<tr>';
-                                    echo '<td>' . $row["id"] . '</td>';
-                                    echo '<td>' . $row["username"] . '</td>';
-                                    echo '<td>' . $row["email"] . '</td>';
-                                    echo '<td>' . $row["password"] . '</td>';
-                                    echo '<td>';
-                                    echo '<button type="button" onclick="window.location.href=\'editclient.php?id=' . $row["id"] . '\'"><i class="fa fa-edit"></i></button>';
-                                    echo '&nbsp;&nbsp;';
-                                    echo '<button type="button" onclick="if(confirm(\'Do you want to delete that particular product?\')) window.location.href=\'?id=' . $row["id"] . '\';"><i class="fa fa-close"></i></button>';
-                                    echo '</td>';
-                                    echo '</tr>';
-                                }
-                                $conn->close();
-                                ?>
-                            </tbody>
-                        </table>
-                    </body>
-
-</html>
-</h4>
-</article>
-</section>
+                            // Output data of each row
+                            while ($row = $result->fetch_assoc()) {
+                                echo '<tr>';
+                                echo '<td>' . $row["id"] . '</td>';
+                                echo '<td>' . $row["username"] . '</td>';
+                                echo '<td>' . $row["email"] . '</td>';
+                                echo '<td>' . $row["password"] . '</td>';
+                                echo '<td>';
+                                echo '<button type="button" onclick="window.location.href=\'editclient.php?id=' . $row["id"] . '\'"><i class="fa fa-edit"></i></button>';
+                                echo '&nbsp;&nbsp;';
+                                echo '<button type="button" onclick="if(confirm(\'Do you want to delete this client?\')) window.location.href=\'delclient.php?id=' . $row["id"] . '\';"><i class="fa fa-close"></i></button>';
+                                echo '</td>';
+                                echo '</tr>';
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </article>
+        </section>
+    </div>
 
 </body>
 <script>
-    document.querySelector(".jsFilter").addEventListener("click", function() {
+    document.querySelector(".jsFilter").addEventListener("click", function () {
         document.querySelector(".filter-menu").classList.toggle("active");
     });
 
-    document.querySelector(".grid").addEventListener("click", function() {
+    document.querySelector(".grid").addEventListener("click", function () {
         document.querySelector(".list").classList.remove("active");
         document.querySelector(".grid").classList.add("active");
         document.querySelector(".products-area-wrapper").classList.add("gridView");
@@ -453,7 +567,7 @@ if (!isSessionActive()) {
             .classList.remove("tableView");
     });
 
-    document.querySelector(".list").addEventListener("click", function() {
+    document.querySelector(".list").addEventListener("click", function () {
         document.querySelector(".list").classList.add("active");
         document.querySelector(".grid").classList.remove("active");
         document.querySelector(".products-area-wrapper").classList.remove("gridView");
@@ -461,7 +575,7 @@ if (!isSessionActive()) {
     });
 
     var modeSwitch = document.querySelector('.mode-switch');
-    modeSwitch.addEventListener('click', function() {
+    modeSwitch.addEventListener('click', function () {
         document.documentElement.classList.toggle('light');
         modeSwitch.classList.toggle('active');
     });
@@ -476,8 +590,8 @@ if (!isSessionActive()) {
     }
 </script>
 <script>
-    (function($) {
-        $('nav li').click(function() {
+    (function ($) {
+        $('nav li').click(function () {
             $(this).addClass('sidebar-list-item active').siblings('li').removeClass('sidebar-list-item active');
             $('section:nth-of-type(' + $(this).data('rel') + ')').stop().fadeIn(400, 'linear').siblings('section').stop().fadeOut(400, 'linear');
         });

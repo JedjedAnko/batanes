@@ -305,9 +305,21 @@ if (!isSessionActive()) {
 <body>
     <div class="app-container">
         <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="app-icon">
+                    <Strong>
+                        <span>Hello
+                            <?php echo $_SESSION['userSession']; ?>
+                        </span>
+                    </Strong>
+                </div>
+
+            </div>
+
             <nav>
                 <ul class="sidebar-list">
-                    <li data-rel="1" class="sidebar-list-item"><a href="#"><span>Bookings</span></a></li>
+                    <li data-rel="1" class="sidebar-list-item active"><a href="#"><span>Bookings</span></a></li>
+                    <li data-rel="2" class="sidebar-list-item"><a href="#"><span>Package Deals</span></a></li>
                     <li class="sidebar-list-item"><a href="logout.php">Logout</a></li>
             </nav>
 
@@ -321,7 +333,7 @@ if (!isSessionActive()) {
 
                     <body>
 
-                        <tbody data-rel="1">
+                        <tbody>
                             <?php
                             $servername = "localhost";
                             $username = "root";
@@ -334,7 +346,7 @@ if (!isSessionActive()) {
                             }
 
                             $customer_username = $_SESSION['userSession']; // Assuming the customer username is stored in the session
-
+                            
                             $sql = "SELECT * FROM bookings WHERE cuser = '$customer_username'";
                             $result = $conn->query($sql);
 
@@ -380,121 +392,210 @@ if (!isSessionActive()) {
                     </body>
             </article>
         </section>
-</body>
-<script>
-    document.querySelector(".jsFilter").addEventListener("click", function() {
-        document.querySelector(".filter-menu").classList.toggle("active");
-    });
+        <section class="products-area-wrappers">
+            <article>
+                <div class="app-content">
+                    <div class="app-content-header">
+                        <h1 class="app-content-headerText">Package Deals</h1>
+                        <button class="app-content-headerButton" onclick="redirectToPage1()"
+                            style="transform: translateX(100vh);">Order Package Deals</button>
+                    </div>
+                    <div class="products-area-wrapper">
+                        <div class="products-header">
+                            <div class="container">
+                                <table class="transaction-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Date</th>
+                                            <th>Customer Name</th>
+                                            <th>Email</th>
+                                            <th>Package</th>
+                                            <th>Price</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $servername = "localhost";
+                                        $username = "root";
+                                        $password = "";
+                                        $db = "batanes";
 
-    document.querySelector(".grid").addEventListener("click", function() {
-        document.querySelector(".list").classList.remove("active");
-        document.querySelector(".grid").classList.add("active");
-        document.querySelector(".products-area-wrapper").classList.add("gridView");
-        document
-            .querySelector(".products-area-wrapper")
-            .classList.remove("tableView");
-    });
+                                        $conn = new mysqli($servername, $username, $password, $db);
+                                        if ($conn->connect_error) {
+                                            die("Connection failed: " . $conn->connect_error);
+                                        }
 
-    document.querySelector(".list").addEventListener("click", function() {
-        document.querySelector(".list").classList.add("active");
-        document.querySelector(".grid").classList.remove("active");
-        document.querySelector(".products-area-wrapper").classList.remove("gridView");
-        document.querySelector(".products-area-wrapper").classList.add("tableView");
-    });
+                                        $customer_username = $_SESSION['userSession']; // Assuming the customer username is stored in the session
+                                        
+                                        $sql = "SELECT * FROM package WHERE customer_username = '$customer_username'";
+                                        $result = $conn->query($sql);
 
-    var modeSwitch = document.querySelector('.mode-switch');
-    modeSwitch.addEventListener('click', function() {
-        document.documentElement.classList.toggle('light');
-        modeSwitch.classList.toggle('active');
-    });
-</script>
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap-select.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.dataTables.min.js"></script>
-<script src="js/dataTables.bootstrap.min.js"></script>
-<script src="js/Chart.min.js"></script>
-<script src="js/fileinput.js"></script>
-<script src="js/chartData.js"></script>
-<script src="js/main.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<!-- Font awesome -->
-<link rel="stylesheet" href="css/font-awesome.min.css">
-<!-- Sandstone Bootstrap CSS -->
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<!-- Bootstrap Datatables -->
-<link rel="stylesheet" href="css/dataTables.bootstrap.min.css">
-<!-- Bootstrap social button library -->
-<link rel="stylesheet" href="css/bootstrap-social.css">
-<!-- Bootstrap select -->
-<link rel="stylesheet" href="css/bootstrap-select.css">
-<!-- Bootstrap file input -->
-<link rel="stylesheet" href="css/fileinput.min.css">
-<!-- Awesome Bootstrap checkbox -->
-<link rel="stylesheet" href="css/awesome-bootstrap-checkbox.css">
-<!-- Admin Stye -->
-<link rel="stylesheet" href="css/style.css">
-<style>
-    .wrapper {
-        position: relative;
-        width: 960px;
-        padding: 10px;
-    }
+                                        if ($result->num_rows > 0) {
+                                            while ($row = $result->fetch_assoc()) {
+                                                echo '<tr>';
+                                                echo '<td>' . $row['id'] . '</td>';
+                                                echo '<td>' . $row['booking_date'] . '</td>';
+                                                echo '<td>' . $row['customer_username'] . '</td>';
+                                                echo '<td>' . $row['email'] . '</td>';
+                                                echo '<td>' . $row['package'] . '</td>';
+                                                echo '<td>' . $row['price'] . '</td>';
+                                                echo '<td>' . $row['status'] . '</td>';
+                                                echo '</tr>';
+                                            }
+                                        } else {
+                                            echo '<tr><td colspan="5">No Package Deals found for this customer.</td></tr>';
+                                        }
 
-    section {
-        position: absolute;
-        display: none;
-        top: 10px;
-        right: 0;
-        width: 1140px;
-        min-height: 550px;
-    }
+                                        $conn->close();
+                                        ?>
+                                    </tbody>
+                                </table>
 
-    section:first-of-type {
-        display: block;
-    }
+                                </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </section>
+        <script>
+            document.querySelector(".jsFilter").addEventListener("click", function () {
+                document.querySelector(".filter-menu").classList.toggle("active");
+            });
 
-    nav {
-        float: left;
-        width: 200px;
-    }
+            document.querySelector(".grid").addEventListener("click", function () {
+                document.querySelector(".list").classList.remove("active");
+                document.querySelector(".grid").classList.add("active");
+                document.querySelector(".products-area-wrapper").classList.add("gridView");
+                document
+                    .querySelector(".products-area-wrapper")
+                    .classList.remove("tableView");
+            });
 
-    .products-area-wrapper {
-        width: 100%;
-        max-height: 580px;
-        padding: 0 4px;
-    }
+            document.querySelector(".list").addEventListener("click", function () {
+                document.querySelector(".list").classList.add("active");
+                document.querySelector(".grid").classList.remove("active");
+                document.querySelector(".products-area-wrapper").classList.remove("gridView");
+                document.querySelector(".products-area-wrapper").classList.add("tableView");
+            });
+
+            var modeSwitch = document.querySelector('.mode-switch');
+            modeSwitch.addEventListener('click', function () {
+                document.documentElement.classList.toggle('light');
+                modeSwitch.classList.toggle('active');
+            });
+        </script>
+        <script>
+            function redirectToPage1() {
+                window.location.href = "packagedeals.php";
+            }
+
+            // function redirectToPage2() {
+            //     window.location.href = "addcustomer.html";
+            // }
+            // function redirectToPage3() {
+            //     window.location.href = "addstaff.html";
+            // }
+        </script>
+        <script>
+            (function ($) {
+                $('nav li').click(function () {
+                    $(this).addClass('sidebar-list-item active').siblings('li').removeClass('sidebar-list-item active');
+                    $('section:nth-of-type(' + $(this).data('rel') + ')').stop().fadeIn(400, 'linear').siblings('section').stop().fadeOut(400, 'linear');
+                });
+            })(jQuery);
+        </script>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap-select.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.dataTables.min.js"></script>
+        <script src="js/dataTables.bootstrap.min.js"></script>
+        <script src="js/Chart.min.js"></script>
+        <script src="js/fileinput.js"></script>
+        <script src="js/chartData.js"></script>
+        <script src="js/main.js"></script>
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!-- Font awesome -->
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <!-- Sandstone Bootstrap CSS -->
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <!-- Bootstrap Datatables -->
+        <link rel="stylesheet" href="css/dataTables.bootstrap.min.css">
+        <!-- Bootstrap social button library -->
+        <link rel="stylesheet" href="css/bootstrap-social.css">
+        <!-- Bootstrap select -->
+        <link rel="stylesheet" href="css/bootstrap-select.css">
+        <!-- Bootstrap file input -->
+        <link rel="stylesheet" href="css/fileinput.min.css">
+        <!-- Awesome Bootstrap checkbox -->
+        <link rel="stylesheet" href="css/awesome-bootstrap-checkbox.css">
+        <!-- Admin Stye -->
+        <link rel="stylesheet" href="css/style.css">
+        <style>
+            .wrapper {
+                position: relative;
+                width: 960px;
+                padding: 10px;
+            }
+
+            section {
+                position: absolute;
+                display: none;
+                top: 10px;
+                right: 0;
+                width: 1140px;
+                min-height: 550px;
+            }
+
+            section:first-of-type {
+                display: block;
+            }
+
+            nav {
+                float: left;
+                width: 200px;
+            }
+
+            .products-area-wrapper {
+                width: 100%;
+                max-height: 580px;
+                padding: 0 4px;
+            }
 
 
-    a {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        padding: 10px 16px;
-        color: var(--sidebar-link);
-        text-decoration: none;
-        font-size: 14px;
-        line-height: 24px;
-    }
+            a {
+                display: flex;
+                align-items: center;
+                width: 100%;
+                padding: 10px 16px;
+                color: var(--sidebar-link);
+                text-decoration: none;
+                font-size: 14px;
+                line-height: 24px;
+            }
 
-    table {
-        border-collapse: collapse;
-        width: 100%;
-    }
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
 
-    th,
-    td {
-        text-align: left;
-        padding: 8px;
-    }
+            th,
+            td {
+                text-align: left;
+                padding: 8px;
+            }
 
-    tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
+            tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
 
-    tr:hover {
-        background-color: #ddd;
-    }
-</style>
+            tr:hover {
+                background-color: #ddd;
+            }
+        </style>
 
 </html>

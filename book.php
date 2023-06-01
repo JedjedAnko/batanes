@@ -87,7 +87,6 @@
 
   $stmt = $conn->prepare("INSERT INTO bookings (name,cuser, email, destination, adults, kids, roomtype, checkin, checkout, subtotal, tax, total) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
   $stmt->bind_param("sssiissssddd", $name, $booking_username, $email, $destination, $adults, $kids, $roomtype, $checkin_str, $checkout_str, $subtotal, $tax, $total);
-
   $stmt->execute();
   $stmt->close();
   $conn->close();

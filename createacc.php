@@ -25,7 +25,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($conn->query($sql) === TRUE) {
         // User registration successful
-        echo "User registration successful!";
+
+        header("Location: index.html");
     } else {
         // User registration failed
         echo "Error: " . $sql . "<br>" . $conn->error;

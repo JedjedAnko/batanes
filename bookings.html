@@ -1,93 +1,151 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Travel Booking</title>
-  </head>
-  <body>
-    <h1>Travel Booking</h1>
-    <form action="book.php" method="post">
-      <label>Name:</label>
-      <input type="text" name="name" />
-      <label>Username:</label>
-      <input type="text" name="cuser" />
-      <label>Email:</label>
-      <input type="email" name="email" />
-      <label>Destination:</label>
-      <select name="destination">
-        <option value="">--Select a hotel--</option>
-        <option value="Fundacion Pacita Batanes Nature Lodge">
-          Fundacion Pacita Batanes Nature Lodge
-        </option>
-        <option value="Marfel's Lodge">Marfel's Lodge</option>
-        <option value="Brandon's Lodging">Brandon's Lodging</option>
-        <option value="Dive Batanes Lodge">Dive Batanes Lodge</option>
-        <option value="Pension Ivatan Hometel">Pension Ivatan Hometel</option>
-        <option value="Amboy's Hometel">Amboy's Hometel</option>
-        <option value="Batanes Resort">Batanes Resort</option>
-      </select>
-      <br />
-      <label>Check-In:</label>
-      <input type="date" name="checkin" />
-      <br />
-      <label>Check-Out:</label>
-      <input type="date" name="checkout" />
-      <br />
-      <label>Room Type:</label>
-      <select name="roomtype">
-        <option value="Luxury">Luxury Suite</option>
-        <option value="Premium">Premium Suite</option>
-        <option value="Basic">Basic Suite</option>
-      </select>
-      <br />
-      <label>Adults:</label>
-      <input type="number" name="adults" min="1" />
-      <br />
-      <label>Kids:</label>
-      <input type="number" name="kids" min="0" />
-      <br /><br />
-      <input type="submit" value="Book" />
-    </form>
-  </body>
+
+<head>
+  <title>Travel Booking</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #f1f1f1;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+    }
+
+    .form-container {
+      flex: 1;
+      margin-right: 20px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      margin-top: 10px;
+      color: #555;
+    }
+
+    input,
+    select {
+      padding: 8px;
+      margin-top: 5px;
+      border: none;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    select {
+      width: 200px;
+    }
+
+    input[type="submit"] {
+      background-color: #CBB279;
+      color: #fff;
+      padding: 10px 20px;
+      margin-top: 20px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s ease;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #867070;
+    }
+
+    .image-container {
+      flex: 1;
+    }
+
+    .image {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="form-container">
+      <h1>Travel Booking</h1>
+      <form action="book.php" method="post">
+        <label>Name:</label>
+        <input type="text" name="name" />
+        <label>Username:</label>
+        <input type="text" name="cuser" />
+        <label>Email:</label>
+        <input type="email" name="email" />
+        <label>Destination:</label>
+        <select name="destination">
+          <option value="">--Select a hotel--</option>
+          <option value="Fundacion Pacita Batanes Nature Lodge">
+            Fundacion Pacita Batanes Nature Lodge
+          </option>
+          <option value="Marfel's Lodge">Marfel's Lodge</option>
+          <option value="Brandon's Lodging">Brandon's Lodging</option>
+          <option value="Dive Batanes Lodge">Dive Batanes Lodge</option>
+          <option value="Pension Ivatan Hometel">Pension Ivatan Hometel</option>
+          <option value="Amboy's Hometel">Amboy's Hometel</option>
+          <option value="Batanes Resort">Batanes Resort</option>
+        </select>
+        <br />
+        <label>Check-In:</label>
+        <input type="date" name="checkin" />
+        <br />
+        <label>Check-Out:</label>
+        <input type="date" name="checkout" />
+        <br />
+        <label>Room Type:</label>
+        <select name="roomtype">
+          <option value="Luxury">Luxury Suite</option>
+          <option value="Premium">Premium Suite</option>
+          <option value="Basic">Basic Suite</option>
+        </select>
+        <br />
+        <label>Adults:</label>
+        <input type="number" name="adults" min="1" />
+        <br />
+        <label>Kids:</label>
+        <input type="number" name="kids" min="0" />
+        <br /><br />
+        <input type="submit" value="Book" onclick="smoothScrollTo('.container')" />
+      </form>
+    </div>
+    <div class="image-container">
+      <img class="image" src="https://i.pinimg.com/originals/75/88/0e/75880e63c9c182515f986a134441e81c.jpg"
+        alt="Batanes Island" />
+      <img class="image" src="https://proudpinoy.ph//wp-content/uploads/2022/06/Naidi-Hills-e1655877969574.jpg"
+        alt="Batanes Island" />
+      <img class="image" src="https://proudpinoy.ph//wp-content/uploads/2022/06/Mahatao-Boat-Shelter-Port-1024x768.jpg"
+        alt="Batanes Island" />
+    </div>
+  </div>
+
+  <script>
+    function smoothScrollTo(target) {
+      document.querySelector(target).scrollIntoView({
+        behavior: 'smooth'
+      });
+    }
+  </script>
+</body>
+
 </html>
-
-<style>
-  form {
-    display: flex;
-    flex-direction: column;
-    max-width: 400px;
-    margin: 0 auto;
-  }
-
-  label {
-    margin-top: 10px;
-  }
-
-  input,
-  select {
-    margin-top: 5px;
-    padding: 5px;
-    border-radius: 3px;
-    border: 1px solid #ccc;
-  }
-
-  input[type="submit"] {
-    margin-top: 10px;
-    background-color: #4caf50;
-    color: #fff;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-
-  input[type="submit"]:hover {
-    background-color: #3e8e41;
-  }
-
-  /* Adjust the font size and spacing */
-  h1,
-  label {
-    font-size: 1.2em;
-    letter-spacing: 0.5px;
-  }
-</style>
